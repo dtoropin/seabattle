@@ -13,10 +13,6 @@ var view = {
     }
 };
 
-// view.showMessage("Seabattle!");
-// view.showMiss("05");
-// view.showHit("34");
-
 // Model
 var model = {
     boardSize: 7,
@@ -25,9 +21,9 @@ var model = {
     shipSinking: 0,
 
     ships: [
-        {locations: ["01", "02", "03"], hit: ["", "", ""]},
-        {locations: ["45", "55", "65"], hit: ["", "", ""]},
-        {locations: ["21", "22", "23"], hit: ["", "", ""]}
+        {locations: ["0", "0", "0"], hit: ["", "", ""]},
+        {locations: ["0", "0", "0"], hit: ["", "", ""]},
+        {locations: ["0", "0", "0"], hit: ["", "", ""]}
     ],
 
     fire: function (shot) {
@@ -58,12 +54,50 @@ var model = {
             }
         }
         return true;
+    },
+
+    generateShipLocations: function () {
+        var locations;
+        for(var i = 0; i < this.shipCount; i++) {
+            do {
+                locations = this.generateShip();
+            } while(this.collision(locations));
+            this.ships[i].locations = locations;
+        }
+    },
+
+    generateShip: function () {
+        var direction = Math.floor(Math.random() * 2);
+        var row, col;
+
+        if(direction === 1) {
+            row = Math.floor(Math.random() * this.boardSize);
+            col = Math.floor(Math.random() * (this.boardSize - this.shipLength));
+        } else {
+            col = Math.floor(Math.random() * this.boardSize);
+            row = Math.floor(Math.random() * (this.boardSize - this.shipLength));
+        }
+
+        var newShipLocations = [];
+        for(var i = 0; i < this.shipLength; i++) {
+            if(direction === 1) {
+                newShipLocations.push(row + "" + (col + i));
+            } else {
+                newShipLocations.push((row + i) + "" + col);
+            }
+        }
+        return newShipLocations;
+    },
+
+    collision: function (locations) {
+        for(var i =0; i < this.numShips; i++) {
+            var ship = model.ships[i];
+            for(var j = 0; j < locations.length; j++) {
+                if(ship.locations.indexOf(locations[j]) >= 0) return true;
+            }
+        }
     }
 };
-
-// model.fire("01");
-// model.fire("02");
-// model.fire("03");
 
 // Controller
 var controller = {
@@ -82,20 +116,6 @@ var controller = {
         }
     }
 };
-
-// controller.processShot("A1");
-// controller.processShot("A2");
-// controller.processShot("A3");
-//
-// controller.processShot("E5");
-// controller.processShot("F5");
-// controller.processShot("G5");
-//
-// controller.processShot("C5");
-//
-// controller.processShot("C1");
-// controller.processShot("C2");
-// controller.processShot("C3");
 
 // Helper functions
 function parseShot(shot) {
@@ -139,12 +159,15 @@ function handleKeyPress(e) {
     }
 }
 
+// Initialising game
 function init() {
     view.showMessage("Battleship! Your turn!");
     var fireButton = document.getElementById("fireButton");
     fireButton.onclick = handleFireButton;
     var shotInput = document.getElementById("guessInput");
     shotInput.onkeypress = handleKeyPress;
+
+    model.generateShipLocations();
 }
 
 window.onload = init;
