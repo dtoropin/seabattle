@@ -1,0 +1,63 @@
+body {
+    background-color: black;
+}
+div#board {
+    position: relative;
+    width: 860px;
+    height: 724px;
+    margin: 35px auto 0;
+    background: url("../img/board.jpg") no-repeat;
+    -webkit-background-size: cover;
+    background-size: cover;
+}
+div#messageArea {
+    position: absolute;
+    top: 0;
+    left: 0;
+    color: rgb(83, 175, 19);
+}
+table {
+    position: absolute;
+    left: 145px;
+    top: 82px;
+    border-spacing: 0;
+}
+td {
+    width: 79px;
+    height: 79px;
+}
+form {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    padding: 15px;
+    background-color: rgb(83, 175, 19);
+}
+form input {
+    background-color: rgb(152, 207, 113);
+    border-color: rgb(83, 175, 19);
+    font-size: 1em;
+}
+form input[type="button"]:active {
+    -webkit-box-shadow: inset 3px 3px 5px #000;
+    -moz-box-shadow: inset 3px 3px 5px #000;
+    box-shadow: inset 3px 3px 5px #000;
+}
+form a {
+    color: rgb(0, 0, 0);
+    text-transform: uppercase;
+    font-weight: bold;
+}
+form a:hover {
+    text-shadow: 0 0 3px #000;
+}
+.hit {
+    background: url("../img/ship.png") no-repeat center center;
+    -webkit-background-size: cover;
+    background-size: contain;
+}
+.miss {
+    background: url("../img/miss.png") no-repeat center center;
+    -webkit-background-size: cover;
+    background-size: contain;
+}
