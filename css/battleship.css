@@ -5,7 +5,7 @@ div#board {
     position: relative;
     width: 860px;
     height: 724px;
-    margin: 35px auto 0;
+    margin: 15px auto 0;
     background: url("../img/board.jpg") no-repeat;
     -webkit-background-size: cover;
     background-size: cover;
@@ -28,7 +28,7 @@ td {
 }
 form {
     position: absolute;
-    bottom: 0;
+    bottom: -15px;
     right: 0;
     padding: 15px;
     background-color: rgb(83, 175, 19);
